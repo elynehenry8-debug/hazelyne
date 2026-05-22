@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenity - AI Mental Wellness Companion</title>
+  <meta name="description" content="A personal mental health companion offering instant sentiment mapping, breathing guides, sensory grounding, and synthesized relaxing sounds.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <h1>Serenity <span class="logo-dot"></span></h1>
+      </div>
+      
+      <!-- Bottom Nav (Positioned on top for Desktop via media query) -->
+      <nav class="bottom-nav">
+        <button id="nav-chat" class="nav-item active">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+          </svg>
+          <span>Companion</span>
+        </button>
+        <button id="nav-exercises" class="nav-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.17 19.58 10.53 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+          </svg>
+          <span>Mindfulness</span>
+        </button>
+        <button id="nav-sounds" class="nav-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          <span>Sanctuary</span>
+        </button>
+        <button id="nav-history" class="nav-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+          <span>Footprint</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Cockpit Layout -->
+    <main class="main-content">
+      
+      <!-- Left: Dynamic Serenity Sphere Section -->
+      <section class="serenity-section">
+        <div class="serenity-container">
+          <div class="serenity-glow-outer"></div>
+          <div class="serenity-orb" id="serenity-sphere"></div>
+          <div class="serenity-core"></div>
+        </div>
+        <div class="serenity-info">
+          <h2 id="serenity-mood-name" class="mood-calm">Calm & Centered</h2>
+          <p class="serenity-subtext" id="serenity-pulse-text">Serenity reflects your emotional state</p>
+        </div>
+      </section>
+
+      <!-- Right: Main Display Tab Screens -->
+      <section class="display-section glass-panel">
+        
+        <!-- Tab 1: Conversational Chat Companion -->
+        <div id="tab-chat" class="chat-panel">
+          <div class="messages-container" id="chat-messages">
+            <!-- Messages rendered dynamically -->
+          </div>
+          
+          <div class="chat-input-bar">
+            <div class="chat-input-wrapper">
+              <textarea id="chat-input" placeholder="Talk about your feelings..."></textarea>
+            </div>
+            
+            <button id="chat-mic-btn" class="btn-round" title="Voice Input">
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 9h2c0 .55-.45 1-1 1s-1-.45-1-1zm6-12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+            </button>
+            
+            <button id="chat-send-btn" class="btn-round" title="Send Message">
+              <svg viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Mindful Exercises Hub -->
+        <div id="tab-exercises" class="scroll-panel hidden">
+          <h2 class="section-title">Mindfulness Center</h2>
+          <p class="section-subtitle">Take a few moments to slow down and anchor yourself.</p>
+          
+          <div class="exercises-grid">
+            <!-- Exercise A: Breathing Guide -->
+            <div class="glass-card breath-simulator" id="breathing-container">
+              <h3 style="margin-bottom:1rem;">Guided Breathing</h3>
+              <div class="breath-circle-container">
+                <div class="breath-circle" id="breath-circle">
+                  <span id="breath-timer-text">Ready</span>
+                </div>
+              </div>
+              <div class="breath-instructions">
+                <p id="breath-instruction">Choose a breathing cycle to begin</p>
+              </div>
+              <div class="breath-controls">
+                <button id="btn-start-box-breath" class="btn-breath">Box Breathing (4s)</button>
+                <button id="btn-start-relax-breath" class="btn-breath">4-7-8 Breathing</button>
+                <button id="btn-stop-breath" class="btn-breath btn-stop-breath hidden">Stop</button>
+              </div>
+            </div>
+
+            <!-- Exercise B: Sensory Grounding Game -->
+            <div class="glass-card grounding-box" id="grounding-container">
+              <h3>5-4-3-2-1 Grounding</h3>
+              <div id="grounding-section">
+                <h4 id="grounding-prompt">🌟 Step 5: <span class="step-guide">Name 5 things you can SEE around you.</span></h4>
+                <div class="progress-bar-container">
+                  <div class="progress-bar" id="grounding-progress" style="width: 0%;"></div>
+                </div>
+                <ul id="grounding-list" class="grounding-items-list">
+                  <!-- Grounding items list -->
+                </ul>
+                <div class="grounding-input-row">
+                  <input type="text" id="grounding-input" placeholder="Item 1 of 5..." />
+                  <button id="grounding-submit-btn" class="btn btn-accent">Submit</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise C: Gratitude Journal -->
+            <div class="glass-card form-box full-width" id="gratitude-container">
+              <h3>☀️ Gratitude Journal</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">Anchoring gratitude activates positive neuro-pathways. Write down 3 simple things you are grateful for today:</p>
+              <form id="gratitude-form">
+                <div class="form-group" style="margin-bottom:0.75rem;">
+                  <input type="text" id="gratitude-1" placeholder="1. Something warm or small..." required>
+                </div>
+                <div class="form-group" style="margin-bottom:0.75rem;">
+                  <input type="text" id="gratitude-2" placeholder="2. A person, animal, or detail..." required>
+                </div>
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <input type="text" id="gratitude-3" placeholder="3. A simple win, food, or memory..." required>
+                </div>
+                <button type="submit" id="gratitude-submit" class="btn btn-primary btn-block">Log Gratitude</button>
+              </form>
+            </div>
+
+            <!-- Exercise D: Thought Reframer -->
+            <div class="glass-card form-box full-width" id="reframer-container">
+              <h3>🍃 Cognitive Thought Reframer</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Write down a stressful or self-critical thought, then challenge and reframe it with gentle self-compassion.</p>
+              <form id="reframer-form">
+                <div class="reframer-grid">
+                  <div class="form-group">
+                    <label for="negative-thought">Heavy/Negative Thought</label>
+                    <textarea id="negative-thought" placeholder="e.g. 'I'm completely failing at everything right now.'" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="reframed-thought">Compassionate Reframed Thought</label>
+                    <textarea id="reframed-thought" placeholder="e.g. 'I am going through a stressful week, and it is normal to struggle. I am doing my best.'" required></textarea>
+                  </div>
+                </div>
+                <button type="submit" id="reframer-submit" class="btn btn-primary btn-block" style="margin-top:1.25rem;">Commit New Perspective</button>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Daily Quote -->
+          <div id="quote-container"></div>
+        </div>
+
+        <!-- Tab 3: Sound Sanctuary Mixer -->
+        <div id="tab-sounds" class="scroll-panel hidden">
+          <div class="sounds-layout">
+            <div class="mixer-header">
+              <div>
+                <h2 class="section-title">Sound Sanctuary</h2>
+                <p class="section-subtitle" style="margin-bottom:0;">Procedurally synthesized ambient layers. Adjust mix levels to taste.</p>
+              </div>
+              <div class="master-controls">
+                <div class="master-vol-row">
+                  <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted);">MASTER</span>
+                  <input type="range" id="master-volume" min="0" max="1" step="0.05" value="0.8" class="slider-glowing">
+                </div>
+                <button id="stop-all-audio" class="btn btn-sm btn-accent btn-stop-breath" style="padding: 0.5rem 1rem;">Stop All</button>
+              </div>
+            </div>
+
+            <div class="mixer-grid">
+              <!-- Sound 1: Binaural Beats -->
+              <div class="glass-card mixer-card">
+                <div class="mixer-card-header">
+                  <div class="mixer-icon-title">
+                    <span class="mixer-icon">🌀</span>
+                    <div class="mixer-title-desc">
+                      <h4>Binaural Beats</h4>
+                      <p>6Hz Theta Entrainment</p>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-binaural">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="mixer-vol-adjuster">
+                  <label>Layer Volume</label>
+                  <input type="range" id="vol-binaural" min="0" max="1" step="0.05" value="0.5" class="slider-glowing slider-full">
+                </div>
+              </div>
+
+              <!-- Sound 2: Ocean Waves -->
+              <div class="glass-card mixer-card">
+                <div class="mixer-card-header">
+                  <div class="mixer-icon-title">
+                    <span class="mixer-icon">🌊</span>
+                    <div class="mixer-title-desc">
+                      <h4>Ocean Waves</h4>
+                      <p>LFO modulated sweeps</p>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-ocean">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="mixer-vol-adjuster">
+                  <label>Layer Volume</label>
+                  <input type="range" id="vol-ocean" min="0" max="1" step="0.05" value="0.5" class="slider-glowing slider-full">
+                </div>
+              </div>
+
+              <!-- Sound 3: Forest Rain -->
+              <div class="glass-card mixer-card">
+                <div class="mixer-card-header">
+                  <div class="mixer-icon-title">
+                    <span class="mixer-icon">🌧️</span>
+                    <div class="mixer-title-desc">
+                      <h4>Forest Rain</h4>
+                      <p>High-passed noise patter</p>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-rain">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="mixer-vol-adjuster">
+                  <label>Layer Volume</label>
+                  <input type="range" id="vol-rain" min="0" max="1" step="0.05" value="0.5" class="slider-glowing slider-full">
+                </div>
+              </div>
+
+              <!-- Sound 4: Celestial Chimes -->
+              <div class="glass-card mixer-card">
+                <div class="mixer-card-header">
+                  <div class="mixer-icon-title">
+                    <span class="mixer-icon">🔔</span>
+                    <div class="mixer-title-desc">
+                      <h4>Wind Chimes</h4>
+                      <p>Pentatonic echo bells</p>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-chimes">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="mixer-vol-adjuster">
+                  <label>Layer Volume</label>
+                  <input type="range" id="vol-chimes" min="0" max="1" step="0.05" value="0.5" class="slider-glowing slider-full">
+                </div>
+              </div>
+
+              <!-- Sound 5: Ambient Chord Pad -->
+              <div class="glass-card mixer-card">
+                <div class="mixer-card-header">
+                  <div class="mixer-icon-title">
+                    <span class="mixer-icon">🎹</span>
+                    <div class="mixer-title-desc">
+                      <h4>Celestial Pad</h4>
+                      <p>Evolving warm chords</p>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-pad">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="mixer-vol-adjuster">
+                  <label>Layer Volume</label>
+                  <input type="range" id="vol-pad" min="0" max="1" step="0.05" value="0.4" class="slider-glowing slider-full">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Mood Analytics & History Logs -->
+        <div id="tab-history" class="scroll-panel hidden">
+          <div class="history-layout">
+            <div>
+              <h2 class="section-title">Your Emotional Footprint</h2>
+              <p class="section-subtitle" style="margin-bottom:0;">Track trends, logged journal entries, and grounding cycles over time.</p>
+            </div>
+            
+            <!-- Dashboard Chart -->
+            <div class="glass-card dashboard-card">
+              <h3 style="margin-bottom:1rem; font-size:1.1rem; font-weight:600;">Tone Distribution Summary</h3>
+              <div class="chart-wrapper" id="analytics-chart">
+                <!-- SVG Chart injected here -->
+              </div>
+            </div>
+
+            <!-- Detailed Logs Timeline -->
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="font-size:1.1rem; font-weight:600;">Activity History</h3>
+                <button id="clear-history-btn" class="btn btn-sm btn-stop-breath" style="padding: 0.4rem 0.85rem;">Clear Data</button>
+              </div>
+              
+              <div class="history-items-container" id="history-logs-list">
+                <!-- Logs rendered here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
